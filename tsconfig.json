@@ -15,9 +15,7 @@
       "webpack-env"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
     "lib": [
       "esnext",
@@ -30,6 +28,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "src/**/*.scss",
+    "src/**/*.less",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
