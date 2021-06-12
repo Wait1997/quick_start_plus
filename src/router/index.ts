@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 /**
  * 路由：
@@ -9,41 +9,43 @@ import Layout from '@/layout'
 export const currencyRoutes: RouteRecordRaw[] = [
   {
     path: '/login',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '@/views/login'),
-    meta: { title: '登录页' }
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
+    meta: { title: '登录页', hidden: true }
   },
   {
     path: '/404',
     name: '404',
-    component: () => import(/* webpackChunkName: "404" */ '@/views/404')
+    component: () => import(/* webpackChunkName: "404" */ '@/views/error/404'),
+    meta: { hidden: true }
+  },
+  {
+    path: '/401',
+    component: () => import(/* webpackChunkName: "401" */ '@/views/error/401')
   },
   {
     path: '/',
-    name: 'home',
     component: Layout,
     redirect: '/dashboard',
     children: [
       {
         path: 'dashboard',
-        name: 'dashboard',
-        // eslint-disable-next-line prettier/prettier
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard'),
-        meta: { title: '首页', icon: 'el-icon-s-data' }
+        name: 'Dashboard',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+        meta: { title: '首页', icon: 'el-icon-s-data', affix: true }
       }
     ]
   },
   {
     path: '/personal',
-    name: 'personal',
     component: Layout,
     redirect: '/personal/index',
     children: [
       {
         path: 'index',
-        name: 'personal-index',
+        name: 'PersonalIndex',
         component: () => import(/* webpackChunkName: "personal-index" */ '@/views/personal'),
-        meta: { title: '个人中心' }
+        meta: { title: '个人中心', icon: 'el-icon-s-data' }
       }
     ]
   }
@@ -53,35 +55,29 @@ export const currencyRoutes: RouteRecordRaw[] = [
 export const asyncRoutes: RouteRecordRaw[] = [
   {
     path: '/permission',
-    name: 'permission',
     component: Layout,
     redirect: '/permission/page-user',
-    meta: { title: '权限许可', icon: 'el-icon-lock' },
+    meta: { title: '权限许可', icon: 'el-icon-lock', roles: ['admin', 'editor'], alwaysShow: true },
     children: [
       {
         path: 'page-user',
-        name: 'page-user',
-        component: () => import(/* webpackChunkName: "page-user" */ '@/views/permission/pageUser'),
+        name: 'PageUser',
+        component: () => import(/* webpackChunkName: "page-user" */ '@/views/permission/pageUser/index.vue'),
         meta: { title: '用户页面', icon: 'el-icon-user' }
       },
       {
         path: 'page-admin',
-        name: 'page-admin',
-        component: () => import(/* webpackChunkName: "page-admin" */ '@/views/permission/pageAdmin'),
-        meta: { title: '管理员页面', icon: 'el-icon-user-solid' }
+        name: 'PageAdmin',
+        component: () => import(/* webpackChunkName: "page-admin" */ '@/views/permission/pageAdmin/index.vue'),
+        meta: { title: '管理员页面', icon: 'el-icon-user-solid', roles: ['admin'] }
       },
       {
         path: 'roles',
-        name: 'roles',
-        component: () => import(/* webpackChunkName: "roles" */ '@/views/permission/roles'),
-        meta: { title: '权限设置', icon: 'el-icon-s-tools' }
+        name: 'Roles',
+        component: () => import(/* webpackChunkName: "roles" */ '@/views/permission/roles/index.vue'),
+        meta: { title: '权限设置', icon: 'el-icon-s-tools', roles: ['admin'] }
       }
     ]
-  },
-  {
-    path: '*',
-    name: '*404',
-    redirect: '/404'
   }
 ]
 
