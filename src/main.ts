@@ -15,11 +15,15 @@ import {
   ElSubmenu,
   ElMenuItemGroup,
   ElBreadcrumb,
-  ElBreadcrumbItem
+  ElBreadcrumbItem,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu
 } from 'element-plus'
 import '@/router/permission'
 import 'element-plus/packages/theme-chalk/src/base.scss'
 import 'normalize.css'
+import '@/styles/index.scss'
 
 const app = createApp(App)
 app.use(store)
@@ -37,4 +41,7 @@ app.use(ElSubmenu)
 app.use(ElMenuItemGroup)
 app.use(ElBreadcrumb)
 app.use(ElBreadcrumbItem)
+app.use(ElDropdown)
+app.use(ElDropdownItem)
+app.use(ElDropdownMenu)
 app.mount('#app')

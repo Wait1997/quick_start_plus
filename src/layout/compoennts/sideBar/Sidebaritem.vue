@@ -1,16 +1,17 @@
 <template>
-  <!-- 隐藏login/401/404之类不需要展示的 留下来的是要在appMain中展示的 -->
-  <div v-if="!item.meta || !item.meta.hidden">
-    <template v-if="showOnlyOneChild(item.children, item) && !onlyOneChild.children">
+  <!-- 过滤掉不需要展示的菜单项 -->
+  <div v-if="!item?.meta?.hidden">
+    <!-- 当children下面只有一个child时，会在这里展示 -->
+    <template v-if="showOnlyOneChild(item?.children, item) && !onlyOneChild.children">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)">
-          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon" :title="onlyOneChild.meta.title" />
+          <item v-if="onlyOneChild?.meta" :icon="onlyOneChild?.meta?.icon" :title="onlyOneChild?.meta?.title" />
         </el-menu-item>
       </app-link>
     </template>
     <el-submenu v-else :index="resolvePath(item.path)" popper-append-to-body>
       <template v-slot:title>
-        <item v-if="item.meta" :title="item.meta.title" :icon="item.meta && item.meta.icon" />
+        <item v-if="item.meta" :title="item.meta && item.meta?.title" :icon="item.meta && item.meta?.icon" />
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -47,7 +48,9 @@ export default defineComponent({
     }
   },
   setup(props) {
+    // 路由路径
     const { basePath } = toRefs(props)
+    // 当且仅当只有一个child时,不要打开子菜单直接在父级
     const onlyOneChild = ref<RouteRecordRaw | null>(null)
 
     const resolvePath = (routePath: string): string => {
@@ -60,11 +63,15 @@ export default defineComponent({
       return path.resolve(basePath.value, routePath)
     }
 
+    /**
+     * @description 获取children的个数
+     * @param children 父路由的children
+     */
     const showingChildNumber = (children: RouteRecordRaw[]): number => {
       if (children) {
-        // 过滤掉不需要展示的项
-        const showingChildren = children.filter(router => {
-          if (router.meta && router.meta.hidden) {
+        // 过滤掉不需要展示的项,有些children不需要在菜单中直接展示
+        const showingChildren = children?.filter(router => {
+          if (router?.meta && router?.meta?.hidden) {
             return false
           } else {
             return true
@@ -80,10 +87,10 @@ export default defineComponent({
         onlyOneChild.value = { ...parent, path: '' }
         return true
       }
-      // 当children下面只有一个child时
+      // 当children下面只有一个child时,处理直接展示,相当于做了扁平化的处理
       if (showingChildNumber(children) === 1) {
         for (const child of children) {
-          if (!child.meta || !child.meta.hidden) {
+          if (!child?.meta || !child?.meta?.hidden) {
             onlyOneChild.value = child
             return true
           }

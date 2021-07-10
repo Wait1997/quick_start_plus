@@ -39,7 +39,7 @@ router.beforeEach(async (to, from, next) => {
           // 获取匹配后的动态路由 accessRoutes
           const accessRoutes: RouteRecordRaw[] = await store.dispatch('permission/generateRoutes', roles)
 
-          // 动态添加路由到路由表中
+          // 动态添加异步路由到路由表中
           accessRoutes.forEach(route => router.addRoute(route))
 
           next({ ...to, replace: true })

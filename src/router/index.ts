@@ -2,9 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
 
 /**
- * 路由：
- * meta: {title,icon,noCache}
- * currencyRoutes：通用的router
+ * @description currencyRoutes：通用的router meta: {title,icon,noCache,hidden}
  */
 export const currencyRoutes: RouteRecordRaw[] = [
   {
@@ -21,7 +19,8 @@ export const currencyRoutes: RouteRecordRaw[] = [
   },
   {
     path: '/401',
-    component: () => import(/* webpackChunkName: "401" */ '@/views/error/401')
+    component: () => import(/* webpackChunkName: "401" */ '@/views/error/401'),
+    meta: { hidden: true }
   },
   {
     path: '/',
@@ -76,6 +75,35 @@ export const asyncRoutes: RouteRecordRaw[] = [
         name: 'Roles',
         component: () => import(/* webpackChunkName: "roles" */ '@/views/permission/roles/index.vue'),
         meta: { title: '权限设置', icon: 'el-icon-s-tools', roles: ['admin'] }
+      }
+    ]
+  },
+  {
+    path: '/message',
+    component: Layout,
+    redirect: '/message/survey/menu',
+    meta: { title: '调查管理', icon: 'el-icon-lock', roles: ['admin', 'editor'], alwaysShow: true },
+    children: [
+      {
+        path: 'survey',
+        name: 'survey',
+        component: () => import(/* webpackChunkName: "survey" */ '@/views/survey/index.vue'),
+        redirect: '/message/survey/menu',
+        meta: { title: '调查', icon: 'el-icon-user' },
+        children: [
+          {
+            path: 'menu',
+            name: 'Menu',
+            component: () => import(/* webpackChunkName: "survey" */ '@/views/survey/menu/index.vue'),
+            meta: { title: '调查菜单' }
+          },
+          {
+            path: 'side',
+            name: 'Side',
+            component: () => import(/* webpackChunkName: "survey" */ '@/views/survey/side/index.vue'),
+            meta: { title: '调查滑动' }
+          }
+        ]
       }
     ]
   }

@@ -1,17 +1,25 @@
+/*
+ * @Author: @guofang
+ * @Date: 2021-07-07 21:24:52
+ * @Last Modified by: @guofang
+ * @Last Modified time: 2021-07-07 21:28:19
+ */
+
 import { RouteRecordRaw, RouteMeta } from 'vue-router'
 import { currencyRoutes, asyncRoutes } from '@/router'
-
-/**
- * routes: 路由表中的全部的路由
- * addRoutes: 动态的有权限的路由
- */
 export interface PermissionState {
+  /**
+   * @description 路由表中的全部的路由
+   */
   routes: RouteRecordRaw[]
+  /**
+   * @description 动态的有权限的路由
+   */
   addRoutes: RouteRecordRaw[]
 }
 
 /**
- * 判断是否有通过的权限
+ * @description 判断是否有通过的权限
  * @param roles 接口返回的对应的角色
  * @param route 路由表中定义的角色权限
  * @returns boolean
@@ -28,7 +36,7 @@ function hasPermission(roles: string | string[], route: RouteRecordRaw): boolean
 }
 
 /**
- * 递归遍历动态路由表 根据角色判断可渲染的菜单列表
+ * @description 递归遍历动态路由表 根据角色判断可渲染的菜单列表
  * @param routes 路由表
  * @param roles 接口返回的角色
  * @returns RouteRecordRaw[]
@@ -62,6 +70,7 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }: { commit: any }, roles: string | string[]): Promise<RouteRecordRaw[]> {
     return new Promise(resolve => {
+      // asyncRoutes动态加载的路由
       const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

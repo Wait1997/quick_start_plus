@@ -77,8 +77,7 @@ export default defineComponent({
           loading.value = true
           store
             .dispatch('user/login', formLogin)
-            .then((token: string) => {
-              console.log(token)
+            .then(() => {
               loading.value = false
               router.push({ path: redirect.value || '/' })
             })
@@ -95,7 +94,7 @@ export default defineComponent({
       to => {
         redirect.value = to.query && (to.query.redirect as string | undefined)
       },
-      { deep: true }
+      { immediate: true }
     )
 
     return {

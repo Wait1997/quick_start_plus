@@ -1,11 +1,13 @@
 <template>
-  <div class="app-main">
-    <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="cacheView">
-        <router-view :key="key" />
-      </keep-alive>
-    </transition>
-  </div>
+  <section class="app-main">
+    <router-view v-slot="{ Component }">
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive>
+          <Component :is="Component" />
+        </keep-alive>
+      </transition>
+    </router-view>
+  </section>
 </template>
 
 <script lang="ts">
@@ -25,5 +27,9 @@ export default defineComponent({
   width: 100%;
   min-height: calc(100vh - 50px);
   overflow: hidden;
+}
+
+.fixedHeader + .app-main {
+  padding-top: 50px;
 }
 </style>

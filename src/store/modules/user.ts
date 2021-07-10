@@ -37,7 +37,7 @@ const mutations = {
 }
 
 const actions = {
-  login({ commit }: { commit: any }, userInfo: LoginForm): Promise<string> {
+  login({ commit }: { commit: any }, userInfo: LoginForm): Promise<void> {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       try {
@@ -45,7 +45,7 @@ const actions = {
           const data = login({ username, password })
           commit('SET_TOKEN', data.token)
           setToken(data.token) // 把token存在cookie中
-          resolve(data.token)
+          resolve()
         }, 500)
       } catch (error) {
         reject(error)
@@ -71,7 +71,7 @@ const actions = {
     })
   },
 
-  logout({ commit, state }: { commit: any; state: UserState }): Promise<null> {
+  logout({ commit, state }: { commit: any; state: UserState }): Promise<void> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         try {
@@ -80,7 +80,7 @@ const actions = {
           commit('SET_ROLES', [])
           removeToken()
           // reset 路由
-          resolve(null)
+          resolve()
         } catch (error) {
           reject(error)
         }
@@ -88,12 +88,12 @@ const actions = {
     })
   },
 
-  resetToken({ commit }: { commit: any }): Promise<null> {
+  resetToken({ commit }: { commit: any }): Promise<void> {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       removeToken() // must remove token first
-      resolve(null)
+      resolve()
     })
   }
 }

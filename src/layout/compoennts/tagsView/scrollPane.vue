@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar class="scrollContainer">
+  <el-scrollbar class="scroll-container" ref="scrollContainer" @wheel.prevent="handleScroll">
     <slot />
   </el-scrollbar>
 </template>
@@ -9,7 +9,12 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {
-    return {}
+    const handleScroll = (e: any): void => {
+      console.log(e)
+    }
+    return {
+      handleScroll
+    }
   }
 })
 </script>
