@@ -94,7 +94,7 @@ export default defineComponent({
       to => {
         redirect.value = to.query && (to.query.redirect as string | undefined)
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     )
 
     return {

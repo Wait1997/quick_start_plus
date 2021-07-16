@@ -17,6 +17,9 @@ const useTags = (): FuncTags => {
     () => route,
     to => {
       addTags(to)
+    },
+    {
+      deep: true
     }
   )
   return addTags

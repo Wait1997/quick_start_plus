@@ -74,7 +74,7 @@ export default defineComponent({
         }
         levelList.value = needMatchedList
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     )
     return {
       levelList,
