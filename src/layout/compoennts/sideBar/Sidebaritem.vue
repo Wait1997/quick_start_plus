@@ -4,7 +4,7 @@
     <!-- 当children下面只有一个child时，会在这里展示 -->
     <template v-if="showOnlyOneChild(item?.children, item) && !onlyOneChild.children">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item :index="resolvePath(onlyOneChild.path)">
+        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
           <item v-if="onlyOneChild?.meta" :icon="onlyOneChild?.meta?.icon" :title="onlyOneChild?.meta?.title" />
         </el-menu-item>
       </app-link>
@@ -18,6 +18,7 @@
         :key="child.path"
         :item="child"
         :basePath="resolvePath(child.path)"
+        class="nest-menu"
       ></sidebar-item>
     </el-submenu>
   </div>
@@ -41,6 +42,10 @@ export default defineComponent({
     item: {
       type: Object,
       required: true
+    },
+    isNest: {
+      type: Boolean,
+      default: false
     },
     basePath: {
       type: String,

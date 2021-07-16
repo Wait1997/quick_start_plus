@@ -23,14 +23,7 @@ router.beforeEach(async (to, from, next) => {
       // 有token并且能够拿到用户角色 此时的路由表已经根据角色确定
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
       if (hasRoles) {
-        // 获取路由表中所有路由记录
-        const routerAllLists = router.getRoutes()
-        // 如果用户手动输入了错误的路径跳转到404
-        if (routerAllLists.some(route => route.path === to.path)) {
-          next()
-        } else {
-          next({ path: '/404' })
-        }
+        next()
       } else {
         try {
           // 接口返回的 roles(Array<string>)
@@ -42,6 +35,7 @@ router.beforeEach(async (to, from, next) => {
           // 动态添加异步路由到路由表中
           accessRoutes.forEach(route => router.addRoute(route))
 
+          // [Vue Router warn]: No match found for location with path "xx" (xx 动态添加的路由) 未解决
           next({ ...to, replace: true })
         } catch (error) {
           await store.dispatch('user/resetToken')

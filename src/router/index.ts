@@ -18,8 +18,8 @@ export const currencyRoutes: RouteRecordRaw[] = [
     meta: { hidden: true }
   },
   {
-    path: '/401',
-    component: () => import(/* webpackChunkName: "401" */ '@/views/error/401'),
+    path: '/403',
+    component: () => import(/* webpackChunkName: "401" */ '@/views/error/403'),
     meta: { hidden: true }
   },
   {
@@ -62,19 +62,19 @@ export const asyncRoutes: RouteRecordRaw[] = [
         path: 'page-user',
         name: 'PageUser',
         component: () => import(/* webpackChunkName: "page-user" */ '@/views/permission/pageUser/index.vue'),
-        meta: { title: '用户页面', icon: 'el-icon-user' }
+        meta: { title: '用户页面' }
       },
       {
         path: 'page-admin',
         name: 'PageAdmin',
         component: () => import(/* webpackChunkName: "page-admin" */ '@/views/permission/pageAdmin/index.vue'),
-        meta: { title: '管理员页面', icon: 'el-icon-user-solid', roles: ['admin'] }
+        meta: { title: '管理员页面', roles: ['admin'] }
       },
       {
         path: 'roles',
         name: 'Roles',
         component: () => import(/* webpackChunkName: "roles" */ '@/views/permission/roles/index.vue'),
-        meta: { title: '权限设置', icon: 'el-icon-s-tools', roles: ['admin'] }
+        meta: { title: '权限设置', roles: ['admin'] }
       }
     ]
   },
@@ -89,7 +89,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
         name: 'survey',
         component: () => import(/* webpackChunkName: "survey" */ '@/views/survey/index.vue'),
         redirect: '/message/survey/menu',
-        meta: { title: '调查', icon: 'el-icon-user' },
+        meta: { title: '调查' },
         children: [
           {
             path: 'menu',

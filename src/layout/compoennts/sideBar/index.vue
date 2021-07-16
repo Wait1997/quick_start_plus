@@ -10,7 +10,6 @@
         :text-color="variable.menuText"
         :active-text-color="variable.menuActiveText"
         :collapse-transition="false"
-        mode="vertical"
       >
         <sidebar-item v-for="route in permissionRoutes" :key="route.path" :item="route" :basePath="route.path" />
       </el-menu>
@@ -19,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef, ref, watch } from 'vue'
+import { defineComponent, computed, ComputedRef, ref } from 'vue'
 import { RouteRecordRaw, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import logo from './logo.vue'
@@ -66,12 +65,23 @@ export default defineComponent({
 <style lang="scss" scoped>
 /* stylelint-disable */
 
+.el-scrollbar {
+  height: 100%;
+
+  .scrollbarWrap {
+    overflow-x: hidden;
+  }
+
+  .el-menu {
+    border: none;
+    height: 100%;
+    width: 100%;
+  }
+}
+
 .has-logo {
   .el-scrollbar {
     height: calc(100% - 50px);
-  }
-  .scrollbarWrap {
-    overflow-x: hidden;
   }
 }
 </style>

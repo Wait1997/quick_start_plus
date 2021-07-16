@@ -17,7 +17,7 @@ export default defineComponent({
     const { title, icon } = toRefs(props)
     return () => (
       <>
-        {icon.value && <span class={icon.value}></span>}
+        {icon.value && <span class={[icon.value, 'sub-el-icon']}></span>}
         {title.value && <span class='title'>{title.value}</span>}
       </>
     )

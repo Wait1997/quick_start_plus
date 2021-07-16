@@ -1,0 +1,61 @@
+/* stylelint-disable */
+
+.sidebarContainer {
+  a {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .sub-el-icon {
+    margin-right: 12px;
+    margin-left: -2px;
+  }
+
+  .submenu-title-noDropdown,
+  .el-submenu__title {
+    &:hover {
+      background-color: $menuHover !important;
+    }
+  }
+
+  .nest-menu {
+    height: 50px;
+  }
+
+  & .el-submenu .el-menu-item {
+    min-width: $sideBarWidth !important;
+    background-color: $subMenuBg !important;
+
+    &:hover {
+      background-color: $subMenuHover !important;
+    }
+  }
+}
+
+// 侧边栏收起时
+.hideSidebar {
+  .submenu-title-noDropdown {
+    position: relative;
+    padding: 0 !important;
+
+    .sub-el-icon {
+      margin-left: 14px;
+    }
+  }
+  .el-submenu {
+    overflow: hidden;
+
+    & > .el-submenu__title {
+      padding: 0 !important;
+
+      .sub-el-icon {
+        margin-left: 14px;
+      }
+
+      .el-submenu__icon-arrow {
+        display: none;
+      }
+    }
+  }
+}

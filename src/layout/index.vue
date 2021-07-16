@@ -35,7 +35,6 @@ export default defineComponent({
         withoutAnimation: sidebar.value.withoutAnimation
       }
     })
-    console.log(classStyles.value)
     return {
       fixedHeader,
       classStyles
@@ -46,6 +45,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 /* stylelint-disable */
+@import '@/styles/variables.scss';
 
 .appContainer {
   position: relative;
@@ -60,7 +60,7 @@ export default defineComponent({
     z-index: 999;
     height: 100%;
     overflow: hidden;
-    background-color: #304156;
+    background-color: $menuBg;
     transition: width 0.28s;
   }
 
@@ -91,12 +91,12 @@ export default defineComponent({
 }
 .openSidebar {
   .sidebarContainer {
-    width: 210px;
+    width: $sideBarWidth;
   }
   .mainContainer {
-    margin-left: 210px;
+    margin-left: $sideBarWidth;
     .fixedHeader {
-      width: calc(100% - 210px);
+      width: calc(100% - #{$sideBarWidth});
     }
   }
 }
